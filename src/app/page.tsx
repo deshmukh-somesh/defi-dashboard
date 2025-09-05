@@ -3,7 +3,7 @@ import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 
 import Header from "@/components/Header";
 
-import { usePoolsData } from "@/components/usePoolsData";
+import { usePoolsData } from "@/components/hooks/usePoolsData";
 import { Dashboard } from "@/components/Dashboard";
 export default function Home() {
   

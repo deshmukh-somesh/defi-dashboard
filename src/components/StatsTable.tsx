@@ -1,12 +1,23 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card"
 import { Table, TableCaption, TableHeader, TableRow, TableHead, TableBody, TableCell } from "./ui/table"
 import { Badge } from './ui/badge'
-import { usePoolsData } from '@/components/usePoolsData' // Import your hook
+import { usePoolsData } from '@/components/hooks/usePoolsData' // Import your hook
 import { Pool } from '@/types/pool' // Import your Pool type
+import { useState } from "react"
+import { CategoryFilter } from "./CategoryFilter"
 
 const PoolsTable = () => {
     // Use your custom hook instead of mock data
     const { data: poolsData, loading, error } = usePoolsData();
+    const [activeCategory, setActiveCategory] = useState('all');
+
+    // filter logic 
+    const filteredPools = activeCategory === 'all' ? poolsData : poolsData.filter(pool=> pool.category === activeCategory )
+
+    // handlecategorychage
+    const handleCategoryChange = (category:string) => {
+        setActiveCategory(category);
+    }
 
     // Format large numbers (TVL, etc.)
     function formatNumber(num: number): string {
@@ -94,9 +105,10 @@ const PoolsTable = () => {
                 <CardTitle>
                     DeFi Yield Opportunities
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="mb-3">
                     Live yields and market data for top DeFi protocols across lending, liquid staking, and yield aggregators
-                </CardDescription>
+                </CardDescription >
+                <CategoryFilter activeCategory={activeCategory} onCategoryChange={handleCategoryChange}/>
             </CardHeader>
             <CardContent>
                 <Table>
@@ -117,7 +129,7 @@ const PoolsTable = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {poolsData.map((pool, index) => {
+                        {filteredPools.map((pool, index) => {
                             const categoryInfo = getCategoryInfo(pool.category);
                             return (
                                 <TableRow key={pool.pool} className="hover:bg-accent/50 transition-colors">
