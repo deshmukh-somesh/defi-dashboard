@@ -1,0 +1,177 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.65rem;
+  
+  /* Light theme - Clean minimal crypto exchange look */
+  --background: oklch(0.98 0.002 240);
+  --foreground: oklch(0.12 0.01 240);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.12 0.01 240);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.12 0.01 240);
+  
+  /* Bitcoin orange primary */
+  --primary: oklch(0.65 0.18 45);
+  --primary-foreground: oklch(0.98 0.01 45);
+  
+  /* Subtle gray secondary */
+  --secondary: oklch(0.95 0.005 240);
+  --secondary-foreground: oklch(0.25 0.01 240);
+  --muted: oklch(0.95 0.005 240);
+  --muted-foreground: oklch(0.45 0.01 240);
+  --accent: oklch(0.95 0.005 240);
+  --accent-foreground: oklch(0.25 0.01 240);
+  
+  /* Crypto red for losses/danger */
+  --destructive: oklch(0.55 0.22 15);
+  
+  /* Clean borders */
+  --border: oklch(0.90 0.01 240);
+  --input: oklch(0.90 0.01 240);
+  --ring: oklch(0.65 0.18 45);
+  
+  /* Crypto chart colors */
+  --chart-1: oklch(0.65 0.18 45);   /* Bitcoin orange */
+  --chart-2: oklch(0.50 0.25 280);  /* Ethereum purple */
+  --chart-3: oklch(0.60 0.20 130);  /* Green (gains) */
+  --chart-4: oklch(0.55 0.22 15);   /* Red (losses) */
+  --chart-5: oklch(0.45 0.15 200);  /* Blue accent */
+  
+  /* Sidebar */
+  --sidebar: oklch(0.97 0.005 240);
+  --sidebar-foreground: oklch(0.12 0.01 240);
+  --sidebar-primary: oklch(0.65 0.18 45);
+  --sidebar-primary-foreground: oklch(0.98 0.01 45);
+  --sidebar-accent: oklch(0.95 0.005 240);
+  --sidebar-accent-foreground: oklch(0.25 0.01 240);
+  --sidebar-border: oklch(0.90 0.01 240);
+  --sidebar-ring: oklch(0.65 0.18 45);
+}
+
+.dark {
+  /* Dark theme - Premium crypto exchange aesthetic */
+  --background: oklch(0.08 0.01 240);
+  --foreground: oklch(0.95 0.005 240);
+  --card: oklch(0.12 0.015 240);
+  --card-foreground: oklch(0.95 0.005 240);
+  --popover: oklch(0.12 0.015 240);
+  --popover-foreground: oklch(0.95 0.005 240);
+  
+  /* Vibrant Bitcoin orange for dark mode */
+  --primary: oklch(0.70 0.20 45);
+  --primary-foreground: oklch(0.08 0.01 240);
+  
+  /* Dark secondary elements */
+  --secondary: oklch(0.18 0.01 240);
+  --secondary-foreground: oklch(0.90 0.005 240);
+  --muted: oklch(0.18 0.01 240);
+  --muted-foreground: oklch(0.65 0.01 240);
+  --accent: oklch(0.18 0.01 240);
+  --accent-foreground: oklch(0.90 0.005 240);
+  
+  /* Bright red for losses */
+  --destructive: oklch(0.65 0.25 15);
+  
+  /* Subtle dark borders */
+  --border: oklch(0.20 0.01 240);
+  --input: oklch(0.20 0.01 240);
+  --ring: oklch(0.70 0.20 45);
+  
+  /* Enhanced crypto chart colors for dark mode */
+  --chart-1: oklch(0.70 0.20 45);   /* Bright Bitcoin orange */
+  --chart-2: oklch(0.65 0.25 280);  /* Vibrant Ethereum purple */
+  --chart-3: oklch(0.70 0.25 130);  /* Bright green (gains) */
+  --chart-4: oklch(0.65 0.25 15);   /* Bright red (losses) */
+  --chart-5: oklch(0.60 0.20 200);  /* Bright blue accent */
+  
+  /* Dark sidebar with crypto styling */
+  --sidebar: oklch(0.10 0.01 240);
+  --sidebar-foreground: oklch(0.95 0.005 240);
+  --sidebar-primary: oklch(0.70 0.20 45);
+  --sidebar-primary-foreground: oklch(0.08 0.01 240);
+  --sidebar-accent: oklch(0.18 0.01 240);
+  --sidebar-accent-foreground: oklch(0.90 0.005 240);
+  --sidebar-border: oklch(0.20 0.01 240);
+  --sidebar-ring: oklch(0.70 0.20 45);
+}
+
+/* Additional crypto-themed utility classes */
+.crypto-gain {
+  color: oklch(0.70 0.25 130);
+}
+
+.crypto-loss {
+  color: oklch(0.65 0.25 15);
+}
+
+.bitcoin-accent {
+  color: oklch(0.70 0.20 45);
+}
+
+.ethereum-accent {
+  color: oklch(0.65 0.25 280);
+}
+
+.crypto-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px oklch(0 0 0 / 0.05);
+}
+
+.dark .crypto-card {
+  box-shadow: 0 2px 8px oklch(0 0 0 / 0.2);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
