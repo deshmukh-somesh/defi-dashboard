@@ -108,7 +108,7 @@
   /* Dark financial interface elements */
   --secondary: oklch(0.12 0.01 240);
   --secondary-foreground: oklch(0.88 0.003 240);
-  --muted: oklch(0.12 0.01 240);
+  --muted: oklch(31.178% 0.00834 255.633);
   --muted-foreground: oklch(0.58 0.01 240);
   --accent: oklch(0.12 0.01 240);
   --accent-foreground: oklch(0.88 0.003 240);
@@ -117,8 +117,8 @@
   --destructive: oklch(0.68 0.22 15);
   
   /* Dark borders for terminal-like interface */
-  --border: oklch(0.15 0.01 240);
-  --input: oklch(0.15 0.01 240);
+  --border: oklch(0.27 0.01 240);
+  --input: oklch(0.27 0.01 240);
   --ring: oklch(0.75 0.18 45);
   
   /* Enhanced financial chart colors for dark mode */

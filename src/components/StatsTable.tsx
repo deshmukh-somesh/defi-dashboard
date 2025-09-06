@@ -134,7 +134,7 @@ const PoolsTable = () => {
                         {filteredPools.map((pool, index) => {
                             const categoryInfo = getCategoryInfo(pool.category);
                             return (
-                                <TableRow key={pool.pool} onClick={() => router.push(`/pools/${pool.pool}`)} className="hover:bg-accent/50 transition-colors cursor-pointer">
+                                <TableRow key={pool.pool} onClick={() => router.push(`/pools/${pool.pool}`)} className="cursor-pointer">
                                     <TableCell className="font-medium text-muted-foreground">
                                         {index + 1}
                                     </TableCell>
