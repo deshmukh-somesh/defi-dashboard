@@ -111,15 +111,15 @@ export const PoolDetail = ({ poolId }: { poolId: string }) => {
 
     // MAIN CONTENT - Only render this when we have a valid pool
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 mt-15">
+
+            <Card className="p-8">
             <div className="flex items-center gap-4">
-                <Button variant="ghost" onClick={handleBack} className="flex items-center gap-2">
-                    <ChevronLeft className="w-4 h-4" />
+                <Button variant="ghost" onClick={handleBack} className="flex items-center gap-2 cursor-pointer">
+                    <ChevronLeft className="w-4 h-4 " />
                     Back to Dashboard
                 </Button>
             </div>
-
-            <Card className="p-8">
                 <div className="flex justify-between items-start mb-6">
                     <div>
                         <h1 className="text-3xl font-bold text-gray-900 mb-2">{pool.project}</h1>

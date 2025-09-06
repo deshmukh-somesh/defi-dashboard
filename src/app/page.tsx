@@ -12,9 +12,7 @@ export default function Home() {
       
         <MaxWidthWrapper className=" pb-24 sm:pb-32 lg:gap-x-0 xl:gap-x-6 lg:pb-52">
         <Header/>
-          
-
-          <Dashboard/>
+        <Dashboard/>
 
           
         </MaxWidthWrapper>
