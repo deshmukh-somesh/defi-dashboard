@@ -17,9 +17,9 @@ export const Dashboard = () => {
 
             </StatsCards> */}
 
-            <StatsTable>
+            <StatsTable />
 
-            </StatsTable>
+
         </div>
     )
 }

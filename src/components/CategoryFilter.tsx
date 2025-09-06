@@ -21,7 +21,7 @@ export const CategoryFilter = ({ activeCategory, onCategoryChange }: CategoryFil
                     onClick={() => onCategoryChange(key)}
                     variant={activeCategory === key ? "default" : "outline"}
                     className={`
-                        px-4 py-2 font-medium transition-all
+                        px-4 py-2 font-medium transition-all cursor-pointer
                         ${activeCategory === key 
                             ? "bg-primary text-primary-foreground shadow-md hover:bg-primary/90" 
                             : "border-border text-foreground hover:bg-accent hover:text-accent-foreground hover:border-primary/50"

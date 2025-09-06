@@ -5,17 +5,19 @@ import { usePoolsData } from '@/components/hooks/usePoolsData' // Import your ho
 import { Pool } from '@/types/pool' // Import your Pool type
 import { useState } from "react"
 import { CategoryFilter } from "./CategoryFilter"
+import { useRouter } from "next/navigation"
+
 
 const PoolsTable = () => {
     // Use your custom hook instead of mock data
     const { data: poolsData, loading, error } = usePoolsData();
     const [activeCategory, setActiveCategory] = useState('all');
-
+    const router = useRouter();
     // filter logic 
-    const filteredPools = activeCategory === 'all' ? poolsData : poolsData.filter(pool=> pool.category === activeCategory )
+    const filteredPools = activeCategory === 'all' ? poolsData : poolsData.filter(pool => pool.category === activeCategory)
 
     // handlecategorychage
-    const handleCategoryChange = (category:string) => {
+    const handleCategoryChange = (category: string) => {
         setActiveCategory(category);
     }
 
@@ -108,7 +110,7 @@ const PoolsTable = () => {
                 <CardDescription className="mb-3">
                     Live yields and market data for top DeFi protocols across lending, liquid staking, and yield aggregators
                 </CardDescription >
-                <CategoryFilter activeCategory={activeCategory} onCategoryChange={handleCategoryChange}/>
+                <CategoryFilter activeCategory={activeCategory} onCategoryChange={handleCategoryChange} />
             </CardHeader>
             <CardContent>
                 <Table>
@@ -132,7 +134,7 @@ const PoolsTable = () => {
                         {filteredPools.map((pool, index) => {
                             const categoryInfo = getCategoryInfo(pool.category);
                             return (
-                                <TableRow key={pool.pool} className="hover:bg-accent/50 transition-colors">
+                                <TableRow key={pool.pool} onClick={() => router.push(`/pools/${pool.pool}`)} className="hover:bg-accent/50 transition-colors cursor-pointer">
                                     <TableCell className="font-medium text-muted-foreground">
                                         {index + 1}
                                     </TableCell>
@@ -153,8 +155,8 @@ const PoolsTable = () => {
                                         <Badge
                                             variant="secondary"
                                             className={`font-mono ${pool.category === 'lending' ? 'bg-blue-100 text-blue-700' :
-                                                    pool.category === 'liquidStaking' ? 'bg-violet-100 text-violet-700' :
-                                                        'bg-green-100 text-green-700'
+                                                pool.category === 'liquidStaking' ? 'bg-violet-100 text-violet-700' :
+                                                    'bg-green-100 text-green-700'
                                                 }`}
                                         >
                                             {categoryInfo.label}
@@ -177,7 +179,7 @@ const PoolsTable = () => {
                                         {pool.sigma ? `${pool.sigma.toFixed(1)}%` : 'N/A'}
                                     </TableCell>
                                     <TableCell className="text-right text-xs text-muted-foreground">
-                                        {pool.predictions ? pool.predictions?.predictedClass  : "N/A"
+                                        {pool.predictions ? pool.predictions?.predictedClass : "N/A"
                                         }
                                     </TableCell>
                                 </TableRow>
