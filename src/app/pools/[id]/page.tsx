@@ -1,5 +1,4 @@
 
-import MaxWidthWrapper from "@/components/MaxWidthWrapper"
 
 import { PoolDetail } from "@/components/PoolDetail"
 export default async function PoolDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -7,8 +6,7 @@ export default async function PoolDetailPage({ params }: { params: Promise<{ id:
     
     
     return (
-        <MaxWidthWrapper>
-            <PoolDetail poolId={id}  />
-        </MaxWidthWrapper>
+        
+            <PoolDetail poolId={id} />
     )
 }

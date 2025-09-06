@@ -1,6 +1,6 @@
 import { ChartDataPoint } from "@/types/pool"
 import { clsx, type ClassValue } from "clsx"
-import { timeStamp } from "console"
+
 import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {

@@ -156,6 +156,7 @@
   color: oklch(0.58 0.20 220);
 }
 
+
 .fintech-card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -180,6 +181,30 @@
     oklch(0.06 0.01 240) 0%, 
     oklch(0.08 0.01 240) 50%, 
     oklch(0.10 0.01 240) 100%);
+}
+
+/* Crypto gradient - exact colors as requested */
+.crypto-gradient {
+  background-image: linear-gradient(to right, #a8caba 0%, #5d4157 100%);
+}
+
+.dark .crypto-gradient {
+  background-image: linear-gradient(to right, #a8caba 0%, #5d4157 100%);
+}
+
+/* Theme-aware crypto gradient variant */
+.crypto-gradient-adaptive {
+  background-image: linear-gradient(to right, 
+    oklch(0.72 0.25 140) 0%,  /* Light green tint */
+    oklch(0.35 0.15 320) 100% /* Purple tint */
+  );
+}
+
+.dark .crypto-gradient-adaptive {
+  background-image: linear-gradient(to right, 
+    oklch(0.75 0.28 140) 0%,  /* Brighter green for dark mode */
+    oklch(0.40 0.18 320) 100% /* Slightly brighter purple */
+  );
 }
 
 /* Financial data highlights */

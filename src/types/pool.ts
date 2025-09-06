@@ -7,11 +7,16 @@ export interface Pool {
     apy: number;
     apyMean30d: number;
     sigma?: number;
-    predictions?: any;
+    predictions?: Predictions;
     chain: string;
     category?: 'lending' | 'liquidStaking' | 'yieldAggregator';
 }
 
+type Predictions = {
+  predictedClass: string;
+  predictedProbability: number;
+  binnedConfidence: number;
+}
 
 export interface ChartDataPoint {
     timestamp: number;
@@ -19,15 +24,19 @@ export interface ChartDataPoint {
     apy: number;
     apyBase: number;
     apyReward: number;
+    il7d?:string;
+    apyBase7d?:string
+}
+
+export interface ProcessedChartDataPoint {
+  date: string;
+  apy: number;
+  timestamp: number;
 }
 
 
 export interface APYChartProps {
-  data: Array<{
-    date: string;
-    apy: number;
-    timestamp: number;
-  }>;
+   data: ProcessedChartDataPoint[];
   loading: boolean;
   error: string | null;
 }

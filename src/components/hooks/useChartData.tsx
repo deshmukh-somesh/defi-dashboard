@@ -1,10 +1,11 @@
 'use client'
 import { useCallback, useEffect, useState } from "react"
 import { processChartData } from "@/lib/utils";
+import { ChartDataPoint, ProcessedChartDataPoint } from "@/types/pool";
 export const useChartData = (poolId: string | null) => {
-    const [chartData, setChartData] = useState<any[]>([])
+    const [chartData, setChartData] = useState<ProcessedChartDataPoint[]>([])
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+     const [error, setError] = useState<string | null>(null)
 
 
     const fetchChartData = useCallback(async (id: string) => {
@@ -24,7 +25,7 @@ export const useChartData = (poolId: string | null) => {
             setChartData(monthlyData);
             
         } catch (err) {
-            // setError(err instanceof Error ? err.message : "Failed to load chart data");
+            setError(err instanceof Error ? err.message : "An error occurred");
         } finally {
             setLoading(false);
         }
