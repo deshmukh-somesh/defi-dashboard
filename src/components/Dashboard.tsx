@@ -4,7 +4,7 @@ import StatsTable from "@/components/StatsTable";
 export const Dashboard = () => {
     return (
         <div>
-        <StatsTable />
+            <StatsTable />
 
 
         </div>

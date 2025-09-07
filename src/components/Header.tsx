@@ -1,5 +1,6 @@
 import { ModeToggle } from "./ModeToggle";
 import Link from 'next/link'
+import { Wallet } from "lucide-react";
 const Header = () => {
     return (
         <header className="mx-auto bg-card border mb-20 border-border rounded-xl p-3 sm:p-4 fintech-card m-4">
@@ -16,7 +17,7 @@ const Header = () => {
                     </svg>
                     <span className=" amber-accent font-semibold">DeFi</span>
                 </Link>
-                
+
                 {/* Navigation menu */}
                 <nav className="sm:flex  flex-wrap items-center justify-around gap-8 mx-auto hidden">
                     <a href="#" className="text-foreground hover:text-primary transition-colors px-3 py-2 rounded-md hover:bg-accent">
@@ -29,12 +30,20 @@ const Header = () => {
                         Trading
                     </a>
                 </nav>
-                
+
                 {/* User Avatar */}
                 <div className="flex justify-center items-center gap-4">
-                    <ModeToggle/>
-                    <button className="w-10 h-10 rounded-full bg-primary hover:bg-primary/90 transition-all duration-200 flex items-center justify-center text-primary-foreground font-semibold text-sm shadow-md hover:shadow-lg ring-2 ring-transparent hover:ring-ring">
-                        JD
+                    <ModeToggle  />
+                    <button
+                        className="group relative h-12 px-6 rounded-xl bg-primary cursor-pointer hover:bg-primary/90 transition-all duration-300 flex items-center justify-center text-primary-foreground font-semibold text-sm shadow-lg hover:shadow-xl ring-2 ring-transparent hover:ring-primary/30 transform hover:-translate-y-0.5"
+                    >
+                        <div className="flex items-center gap-2">
+                            Connect Wallet
+                            <Wallet className="w-6 h-6 group-hover:translate-x-0.5 transition-transform duration-200" />
+                        </div>
+
+                        {/* Gradient overlay */}
+                        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </button>
                 </div>
             </div>

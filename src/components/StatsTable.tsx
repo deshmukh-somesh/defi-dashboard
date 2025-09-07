@@ -6,6 +6,8 @@ import { Pool } from '@/types/pool' // Import your Pool type
 import { useState } from "react"
 import { CategoryFilter } from "./CategoryFilter"
 import { useRouter } from "next/navigation"
+import { Lock } from "lucide-react"
+
 
 
 const PoolsTable = () => {
@@ -35,11 +37,11 @@ const PoolsTable = () => {
     }
 
     // Component for APY change display
-    function APYChangeCell({ current, mean30d }: { current: number, mean30d: number }) {
+    function APYChangeCell({ current, mean30d, index }: { current: number, mean30d: number, index: number }) {
         const change = current - mean30d;
         const isPositive = change > 0;
         return (
-            <TableCell className={`text-right font-medium ${isPositive ? 'crypto-gain' : 'crypto-loss'}`}>
+            <TableCell className={`text-right font-medium ${index >= 5 ? "blur-[2px]" : ""} ${isPositive ? 'crypto-gain' : 'crypto-loss'}`}>
                 {isPositive ? '+' : ''}{change.toFixed(2)}%
             </TableCell>
         );
@@ -134,11 +136,16 @@ const PoolsTable = () => {
                         {filteredPools.map((pool, index) => {
                             const categoryInfo = getCategoryInfo(pool.category);
                             return (
-                                <TableRow key={pool.pool} onClick={() => router.push(`/pools/${pool.pool}`)} className="cursor-pointer">
-                                    <TableCell className="font-medium text-muted-foreground">
-                                        {index + 1}
+                                <TableRow
+                                    key={pool.pool}
+                                    onClick={() => index >= 5 ? console.log(pool.pool) : router.push(`/pools/${pool.pool}`)}
+                                    className="cursor-pointer relative"
+                                >
+                                    {/* <TableCell className={`font-medium text-muted-foreground ${index >= 5 ? "blur-[2px]" : ""}`}> */}
+                                    <TableCell className={`font-medium text-muted-foreground`}>
+                                        {index >= 5 ? <Lock className="w-4 h-4" /> : index + 1}
                                     </TableCell>
-                                    <TableCell className="font-semibold">
+                                    <TableCell className={`font-semibold ${index >= 5 ? "blur-[2px]" : ""}`}>
                                         <div className="flex items-center gap-2">
                                             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white ${categoryInfo.color}`}>
                                                 {pool.project.slice(0, 2).toUpperCase()}
@@ -151,7 +158,7 @@ const PoolsTable = () => {
                                             </div>
                                         </div>
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell className={index >= 5 ? "blur-[2px]" : ""}>
                                         <Badge
                                             variant="secondary"
                                             className={`font-mono ${pool.category === 'lending' ? 'bg-blue-100 text-blue-700' :
@@ -162,25 +169,25 @@ const PoolsTable = () => {
                                             {categoryInfo.label}
                                         </Badge>
                                     </TableCell>
-                                    <TableCell className="text-right font-mono font-semibold">
+                                    <TableCell className={`text-right font-mono font-semibold ${index >= 5 ? "blur-[2px]" : ""}`}>
                                         {formatAPY(pool.apy)}
                                     </TableCell>
-                                    <TableCell className="text-right font-mono">
+                                    <TableCell className={`text-right font-mono ${index >= 5 ? "blur-[2px]" : ""}`}>
                                         {formatAPY(pool.apyMean30d)}
                                     </TableCell>
                                     <APYChangeCell
                                         current={pool.apy}
                                         mean30d={pool.apyMean30d}
+                                        index={index}
                                     />
-                                    <TableCell className="text-right font-mono">
+                                    <TableCell className={`text-right font-mono ${index >= 5 ? "blur-[2px]" : ""}`}>
                                         {formatNumber(pool.tvlUsd)}
                                     </TableCell>
-                                    <TableCell className="text-right font-mono text-muted-foreground">
+                                    <TableCell className={`text-right font-mono text-muted-foreground ${index >= 5 ? "blur-[2px]" : ""}`}>
                                         {pool.sigma ? `${pool.sigma.toFixed(1)}%` : 'N/A'}
                                     </TableCell>
-                                    <TableCell className="text-right text-xs text-muted-foreground">
-                                        {pool.predictions ? pool.predictions?.predictedClass : "N/A"
-                                        }
+                                    <TableCell className={`text-right text-xs text-muted-foreground ${index >= 5 ? "blur-[2px]" : ""}`}>
+                                        {pool.predictions ? pool.predictions?.predictedClass : "N/A"}
                                     </TableCell>
                                 </TableRow>
                             );
