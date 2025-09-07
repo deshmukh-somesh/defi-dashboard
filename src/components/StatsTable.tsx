@@ -3,18 +3,29 @@ import { Table, TableCaption, TableHeader, TableRow, TableHead, TableBody, Table
 import { Badge } from './ui/badge'
 import { usePoolsData } from '@/components/hooks/usePoolsData' // Import your hook
 import { Pool } from '@/types/pool' // Import your Pool type
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { CategoryFilter } from "./CategoryFilter"
 import { useRouter } from "next/navigation"
 import { Lock } from "lucide-react"
 
 
-
+const Free_ROWS_LIMIT = 5;
 const PoolsTable = () => {
     // Use your custom hook instead of mock data
     const { data: poolsData, loading, error } = usePoolsData();
     const [activeCategory, setActiveCategory] = useState('all');
     const router = useRouter();
+
+    console.log(poolsData);
+    // premium pools set: 
+    const originalPremiumPools = useMemo(() => {
+        return new Set(
+            poolsData.slice(Free_ROWS_LIMIT).map(pool => pool.pool)
+        )
+    }, [poolsData])
+
+    console.log(originalPremiumPools);
+
     // filter logic 
     const filteredPools = activeCategory === 'all' ? poolsData : poolsData.filter(pool => pool.category === activeCategory)
 
@@ -37,11 +48,11 @@ const PoolsTable = () => {
     }
 
     // Component for APY change display
-    function APYChangeCell({ current, mean30d, index }: { current: number, mean30d: number, index: number }) {
+    function APYChangeCell({ current, mean30d, isPremium }: { current: number, mean30d: number, isPremium: boolean }) {
         const change = current - mean30d;
         const isPositive = change > 0;
         return (
-            <TableCell className={`text-right font-medium ${index >= 5 ? "blur-[2px]" : ""} ${isPositive ? 'crypto-gain' : 'crypto-loss'}`}>
+            <TableCell className={`text-right font-medium ${isPremium ? "blur-[2px]" : ""} ${isPositive ? 'crypto-gain' : 'crypto-loss'}`}>
                 {isPositive ? '+' : ''}{change.toFixed(2)}%
             </TableCell>
         );
@@ -135,17 +146,19 @@ const PoolsTable = () => {
                     <TableBody>
                         {filteredPools.map((pool, index) => {
                             const categoryInfo = getCategoryInfo(pool.category);
+                            const isPremium = originalPremiumPools.has(pool.pool)
                             return (
                                 <TableRow
                                     key={pool.pool}
-                                    onClick={() => index >= 5 ? console.log(pool.pool) : router.push(`/pools/${pool.pool}`)}
+                                    onClick={() => isPremium ? console.log(pool.pool) : router.push(`/pools/${pool.pool}`)}
                                     className="cursor-pointer relative"
                                 >
-                                    {/* <TableCell className={`font-medium text-muted-foreground ${index >= 5 ? "blur-[2px]" : ""}`}> */}
+                                    {/* <TableCell className={`font-medium text-muted-foreground ${isPremium ? "blur-[2px]" : ""}`}> */}
                                     <TableCell className={`font-medium text-muted-foreground`}>
-                                        {index >= 5 ? <Lock className="w-4 h-4" /> : index + 1}
+                                        {isPremium ? <Lock className="w-4 h-4" /> : index + 1}
                                     </TableCell>
-                                    <TableCell className={`font-semibold ${index >= 5 ? "blur-[2px]" : ""}`}>
+
+                                    <TableCell className={`font-semibold ${isPremium ? "blur-[2px]" : ""}`}>
                                         <div className="flex items-center gap-2">
                                             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white ${categoryInfo.color}`}>
                                                 {pool.project.slice(0, 2).toUpperCase()}
@@ -158,7 +171,8 @@ const PoolsTable = () => {
                                             </div>
                                         </div>
                                     </TableCell>
-                                    <TableCell className={index >= 5 ? "blur-[2px]" : ""}>
+
+                                    <TableCell className={isPremium ? "blur-[2px]" : ""}>
                                         <Badge
                                             variant="secondary"
                                             className={`font-mono ${pool.category === 'lending' ? 'bg-blue-100 text-blue-700' :
@@ -169,24 +183,24 @@ const PoolsTable = () => {
                                             {categoryInfo.label}
                                         </Badge>
                                     </TableCell>
-                                    <TableCell className={`text-right font-mono font-semibold ${index >= 5 ? "blur-[2px]" : ""}`}>
+                                    <TableCell className={`text-right font-mono font-semibold ${isPremium ? "blur-[2px]" : ""}`}>
                                         {formatAPY(pool.apy)}
                                     </TableCell>
-                                    <TableCell className={`text-right font-mono ${index >= 5 ? "blur-[2px]" : ""}`}>
+                                    <TableCell className={`text-right font-mono ${isPremium ? "blur-[2px]" : ""}`}>
                                         {formatAPY(pool.apyMean30d)}
                                     </TableCell>
                                     <APYChangeCell
                                         current={pool.apy}
                                         mean30d={pool.apyMean30d}
-                                        index={index}
+                                        isPremium = {isPremium}
                                     />
-                                    <TableCell className={`text-right font-mono ${index >= 5 ? "blur-[2px]" : ""}`}>
+                                    <TableCell className={`text-right font-mono ${isPremium ? "blur-[2px]" : ""}`}>
                                         {formatNumber(pool.tvlUsd)}
                                     </TableCell>
-                                    <TableCell className={`text-right font-mono text-muted-foreground ${index >= 5 ? "blur-[2px]" : ""}`}>
+                                    <TableCell className={`text-right font-mono text-muted-foreground ${isPremium ? "blur-[2px]" : ""}`}>
                                         {pool.sigma ? `${pool.sigma.toFixed(1)}%` : 'N/A'}
                                     </TableCell>
-                                    <TableCell className={`text-right text-xs text-muted-foreground ${index >= 5 ? "blur-[2px]" : ""}`}>
+                                    <TableCell className={`text-right text-xs text-muted-foreground ${isPremium ? "blur-[2px]" : ""}`}>
                                         {pool.predictions ? pool.predictions?.predictedClass : "N/A"}
                                     </TableCell>
                                 </TableRow>
