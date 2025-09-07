@@ -1,7 +1,7 @@
 // src/components/ConnectWalletButton.tsx
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { useSDK } from "@metamask/sdk-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,9 +22,9 @@ export const ConnectWalletButton: React.FC = () => {
         try {
             setError(null);
             await sdk?.connect();
-        } catch (err: any) {
+        } catch (err) {
             console.error("Connection failed:", err);
-            setError(err.message || "Failed to connect to MetaMask");
+            setError(err instanceof Error ? err.message : "Failed to connect to MetaMask");
         }
     };
 
@@ -33,7 +33,7 @@ export const ConnectWalletButton: React.FC = () => {
         try {
             await sdk?.terminate();
             setError(null);
-        } catch (err: any) {
+        } catch (err) {
             console.error("Disconnect failed:", err);
         }
     };
@@ -62,6 +62,10 @@ export const ConnectWalletButton: React.FC = () => {
                 Connecting...
             </Button>
         );
+    }
+
+    if(connected){
+        console.log(connected);
     }
 
     // Connected state
