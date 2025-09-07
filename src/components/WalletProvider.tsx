@@ -34,13 +34,3 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
 
 
 
-//   const host = typeof window !== 'undefined' ? window.location.host : "defaultHost";
-
-//     const sdkOptions = {
-//         logging: { developerMode: false },
-//         checkinstallationImmediately: false,
-//         dappMetadata: {
-//             name: "DeFi setup",
-//             url: host,
-//         }
-//     }

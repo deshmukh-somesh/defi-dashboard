@@ -6,21 +6,6 @@ import { ConnectWalletButton } from "./ConnectWalletButton";
 import { WalletProvider } from "./WalletProvider";
 
 const Header = () => {
-
-    // const host = typeof window !== 'undefined' ? window.location.host : "defaultHost";
-
-    // const sdkOptions = {
-    //     logging: { developerMode: false },
-    //     checkinstallationImmediately: false,
-    //     dappMetadata: {
-    //         name: "DeFi setup",
-    //         url: host,
-    //     }
-    // }
-
-
-
-
     return (
         <header className="mx-auto bg-card border mb-20 border-border rounded-xl p-3 sm:p-4 fintech-card m-4">
             <div className="flex items-center justify-evenly gap-4 sm:gap-8">
@@ -53,23 +38,11 @@ const Header = () => {
                 {/* User Avatar */}
                 <div className="flex justify-center items-center gap-4">
                     <ModeToggle />
-                    {/* <button
-                        className="group relative h-12 px-6 rounded-xl bg-primary cursor-pointer hover:bg-primary/90 transition-all duration-300 flex items-center justify-center text-primary-foreground font-semibold text-sm shadow-lg hover:shadow-xl ring-2 ring-transparent hover:ring-primary/30 transform hover:-translate-y-0.5"
-                    >
-                        <div className="flex items-center gap-2">
-                            Connect Wallet
-                            <Wallet className="w-6 h-6 group-hover:translate-x-0.5 transition-transform duration-200" />
-                        </div>
-
-                       
-                        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </button> */}
-                    {/* <MetaMaskProvider debug={false} sdkOptions={sdkOptions}> */}
                     <WalletProvider>
                         <ConnectWalletButton />
 
                     </WalletProvider>
-                    {/* </MetaMaskProvider> */}
+
 
                 </div>
             </div>
