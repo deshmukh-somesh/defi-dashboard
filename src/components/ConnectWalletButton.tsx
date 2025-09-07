@@ -12,25 +12,31 @@ import {
 import { formatAddress, getNetworkName, isSupportedChain } from "@/lib/utils";
 import { Wallet, Copy, LogOut, AlertTriangle, CheckCircle } from "lucide-react";
 import { toast } from 'sonner';
+interface ConnectWalletButtonProps {
+    compact?: boolean; // Add this prop
+}
 
-export const ConnectWalletButton: React.FC = () => {
+export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
+    compact = false
+}) => {
     const { sdk, connected, connecting, account, chainId } = useSDK();
     const [copied, setCopied] = useState(false);
+    const [closeModeal, setCloseModal] = useState(false);
 
     // Connect to MetaMask
     const handleConnect = async () => {
         // Store the loading toast Id so we can dismiss it later
         const loadingToast = toast.loading("Connecting to wallet...", {
-                description: "Please approve the connection in MetaMask",
-                className: "fintech-card terminal-gradient border-primary/30"
-            });
+            description: "Please approve the connection in MetaMask",
+            className: "fintech-card terminal-gradient border-primary/30"
+        });
 
         try {
             
             await sdk?.connect();
             toast.dismiss(loadingToast);
-            
-            
+
+
             toast.success("🎉 Wallet Connected!", {
                 description: "Successfully connected to MetaMask",
                 className: "fintech-card profit-gain bg-emerald-50 dark:bg-emerald-950/20 border-emerald-500/50",
@@ -75,7 +81,7 @@ export const ConnectWalletButton: React.FC = () => {
                 await navigator.clipboard.writeText(account);
                 setCopied(true);
                 setTimeout(() => setCopied(false), 2000);
-                
+
                 toast.success("📋 Address Copied!", {
                     description: "Wallet address copied to clipboard",
                     className: "fintech-card amber-accent bg-amber-50 dark:bg-amber-950/20 border-amber-500/50",
@@ -98,8 +104,8 @@ export const ConnectWalletButton: React.FC = () => {
     // Loading state
     if (connecting) {
         return (
-            <Button 
-                disabled 
+            <Button
+                disabled
                 className="min-w-[140px] btn-financial opacity-70 cursor-not-allowed"
             >
                 <Wallet className="mr-2 h-4 w-4 animate-spin" />
@@ -110,6 +116,20 @@ export const ConnectWalletButton: React.FC = () => {
 
     // Connected state
     if (connected && account) {
+
+        if (compact) {
+            return (
+                <Button
+                    disabled
+                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-500"
+                >
+                    <CheckCircle className="mr-2 h-4 w-4" />
+                    Wallet Connected
+                </Button>
+                
+            );
+        }
+
         return (
             <div className="flex items-center gap-3">
                 {/* Wrong network warning */}
@@ -136,8 +156,8 @@ export const ConnectWalletButton: React.FC = () => {
                         <Button
                             variant="outline"
                             className={`min-w-[140px] fintech-card hover:shadow-lg transition-all duration-200 
-                                ${isWrongNetwork 
-                                    ? 'border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300' 
+                                ${isWrongNetwork
+                                    ? 'border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300'
                                     : 'border-emerald-300 dark:border-emerald-700 hover:border-primary'
                                 }
                                 group relative overflow-hidden`}
@@ -151,13 +171,13 @@ export const ConnectWalletButton: React.FC = () => {
                             </div>
                         </Button>
                     </PopoverTrigger>
-                    <PopoverContent 
+                    <PopoverContent
                         className="w-80 fintech-card shadow-2xl border-0"
                         align="end"
                         sideOffset={8}
                     >
                         <div className="absolute inset-0 terminal-gradient rounded-lg" />
-                        
+
                         <div className="relative space-y-6">
                             {/* Header */}
                             <div className="flex items-center gap-3">
@@ -246,9 +266,9 @@ export const ConnectWalletButton: React.FC = () => {
 
     // Disconnected state
     return (
-        <Button 
-            onClick={handleConnect} 
-            className="min-w-[140px] btn-financial group relative overflow-hidden"
+        <Button
+            onClick={handleConnect}
+            className="min-w-[140px] btn-financial group relative overflow-hidden cursor-pointer"
         >
             <div className="absolute inset-0 crypto-gradient-adaptive opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
             <div className="relative flex items-center">

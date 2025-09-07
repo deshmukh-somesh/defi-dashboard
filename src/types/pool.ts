@@ -40,3 +40,10 @@ export interface APYChartProps {
   loading: boolean;
   error: string | null;
 }
+
+export interface SimplePremiumModalProps{
+  isOpen: boolean;
+  onClose: ()=> void;
+  // onConnect: ()=> void;
+  // isConnecting?: boolean;
+}

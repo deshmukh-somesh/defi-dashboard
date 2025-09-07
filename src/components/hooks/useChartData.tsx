@@ -18,7 +18,7 @@ export const useChartData = (poolId: string | null) => {
             if (!response.ok) throw new Error("Failed to fetch chart data");
 
             const data = await response.json();
-            console.log(data);
+           
 
             // Process to get 1st of each month for last 12 months
             const monthlyData = processChartData(data.data);

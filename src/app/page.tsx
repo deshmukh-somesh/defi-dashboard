@@ -7,8 +7,8 @@ import { Dashboard } from "@/components/Dashboard";
 export default function Home() {
   return (
     <div className="min-h-screen mt-8">
-      <MaxWidthWrapper className="pb-24 sm:pb-32 lg:gap-x-0 xl:gap-x-6 lg:pb-20">
-        <Header/>
+      <MaxWidthWrapper className="pb-23 sm:pb-18 lg:gap-x-0 xl:gap-x-6 lg:pb-18">
+        
         <Dashboard/>
       </MaxWidthWrapper>
     </div>

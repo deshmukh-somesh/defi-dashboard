@@ -11,7 +11,7 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
 
     // get the current host for dapp metadata
     const host = typeof window !== 'undefined' ? window.location.host : "defaultHost";
-
+console.log(host);
     const SDKOptions: SDKOptions = {
         logging: {
             developerMode: true, // Set to true for development debugging.
@@ -19,7 +19,7 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
         checkInstallationImmediately: false,
         dappMetadata: {
             name: "MetaMask Next.js Dapp",
-            url: host,
+            url: `https://${host}`,
             iconUrl: "/icons/wallet.svg"
         }
     }
