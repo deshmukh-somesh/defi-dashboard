@@ -185,11 +185,11 @@
 
 /* Crypto gradient - exact colors as requested */
 .crypto-gradient {
-  background-image: linear-gradient(to right, #a8caba 0%, #5d4157 100%);
+  background-image: linear-gradient(to right, #D8C2A8 0%, #614659);
 }
 
 .dark .crypto-gradient {
-  background-image: linear-gradient(to right, #a8caba 0%, #5d4157 100%);
+  background-image: linear-gradient(to right, #D8C2A8 0%, #614659);
 }
 
 /* Theme-aware crypto gradient variant */
