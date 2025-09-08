@@ -18,6 +18,7 @@ const PoolsTable = () => {
     const { data: poolsData, loading, error } = usePoolsData();
     const [activeCategory, setActiveCategory] = useState('all');
     const [showPremiumModal, setShowPremiumModal] = useState(false);
+    const [clickedPools, setClickedPools] = useState<string[]>([]);
     const { connected} = useSDK();
     const router = useRouter();
 
@@ -26,10 +27,11 @@ const PoolsTable = () => {
     // Update your existing handleRowClick function
     const handleRowClick = (pool: Pool, index: number): void => {
         const isPremium = originalPremiumPools.has(pool.pool);
-
+        
         if (isPremium && !connected) {
             setShowPremiumModal(true); // Show modal
         } else {
+            setClickedPools(prev=> [...prev, pool.pool])
             router.push(`/pools/${pool.pool}`); // Navigate normally
         }
     };
@@ -100,7 +102,7 @@ const PoolsTable = () => {
                 <CardContent>
                     <div className="animate-pulse space-y-4">
                         {Array.from({ length: 10 }).map((_, i) => (
-                            <div key={i} className="h-12 bg-zinc-900 rounded"></div>
+                            <div key={i} className="h-12 dark:bg-zinc-900 bg-gray-200 rounded"></div>
                         ))}
                     </div>
                 </CardContent>
@@ -170,8 +172,9 @@ const PoolsTable = () => {
                                     <TableRow
                                         key={pool.pool}
                                         // onClick={() => isPremium ? console.log(pool.pool) : router.push(`/pools/${pool.pool}`)}
-                                        onClick={() => handleRowClick(pool, index)}
-                                        className="cursor-pointer relative"
+                                        onClick={() => !clickedPools.includes(pool.pool) && handleRowClick(pool, index)}
+                                        className={` relative ${clickedPools.includes(pool.pool) ? 'cursor-not-allowed':'cursor-pointer'}`}
+                                        
                                     >
                                         {/* <TableCell className={`font-medium text-muted-foreground ${isPremium ? "blur-[2px]" : ""}`}> */}
                                         <TableCell className={`font-medium text-muted-foreground`}>

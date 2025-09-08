@@ -155,7 +155,7 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
                     <PopoverTrigger asChild>
                         <Button
                             variant="outline"
-                            className={`min-w-[140px] fintech-card hover:shadow-lg transition-all duration-200 
+                            className={`min-w-[140px] fintech-card hover:shadow-lg transition-all duration-200 cursor-pointer
                                 ${isWrongNetwork
                                     ? 'border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300'
                                     : 'border-emerald-300 dark:border-emerald-700 hover:border-primary'
@@ -204,7 +204,7 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
                                             size="sm"
                                             variant="ghost"
                                             onClick={copyAddress}
-                                            className="h-6 w-6 p-0 hover:bg-primary/10"
+                                            className="h-6 w-6 p-0 hover:bg-primary/10 cursor-pointer"
                                         >
                                             <Copy className="h-3 w-3" />
                                         </Button>
@@ -252,7 +252,7 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
                             <Button
                                 onClick={handleDisconnect}
                                 variant="outline"
-                                className="w-full hover:bg-destructive/10 hover:border-destructive/30 hover:text-destructive transition-all duration-200 group"
+                                className="w-full hover:bg-destructive/10 hover:border-destructive/30 hover:text-destructive transition-all duration-200 group cursor-pointer"
                             >
                                 <LogOut className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform duration-200" />
                                 Disconnect Wallet
