@@ -6,7 +6,7 @@ import { Pool } from '@/types/pool' // Import your Pool type
 import { useMemo, useState } from "react"
 import { CategoryFilter } from "./CategoryFilter"
 import { useRouter } from "next/navigation"
-import { Lock } from "lucide-react"
+import { Lock, TrendingDown, TrendingUp } from "lucide-react"
 import { useSDK } from '@metamask/sdk-react';
 import { PremiumModal } from "./PremiumModal"
 
@@ -19,19 +19,19 @@ const PoolsTable = () => {
     const [activeCategory, setActiveCategory] = useState('all');
     const [showPremiumModal, setShowPremiumModal] = useState(false);
     const [clickedPools, setClickedPools] = useState<string[]>([]);
-    const { connected} = useSDK();
+    const { connected } = useSDK();
     const router = useRouter();
 
-    
+
 
     // Update your existing handleRowClick function
     const handleRowClick = (pool: Pool, index: number): void => {
         const isPremium = originalPremiumPools.has(pool.pool);
-        
+
         if (isPremium && !connected) {
             setShowPremiumModal(true); // Show modal
         } else {
-            setClickedPools(prev=> [...prev, pool.pool])
+            setClickedPools(prev => [...prev, pool.pool])
             router.push(`/pools/${pool.pool}`); // Navigate normally
         }
     };
@@ -43,7 +43,7 @@ const PoolsTable = () => {
         )
     }, [poolsData])
 
-  
+
 
     // filter logic 
     const filteredPools = activeCategory === 'all' ? poolsData : poolsData.filter(pool => pool.category === activeCategory)
@@ -137,12 +137,6 @@ const PoolsTable = () => {
         <>
             <Card>
                 <CardHeader>
-                    {/* <CardTitle>
-                        DeFi Yield Opportunities
-                    </CardTitle>
-                    <CardDescription className="mb-3">
-                        Live yields and market data for top DeFi protocols across lending, liquid staking, and yield aggregators
-                    </CardDescription > */}
                     <CategoryFilter activeCategory={activeCategory} onCategoryChange={handleCategoryChange} />
                 </CardHeader>
                 <CardContent>
@@ -173,8 +167,8 @@ const PoolsTable = () => {
                                         key={pool.pool}
                                         // onClick={() => isPremium ? console.log(pool.pool) : router.push(`/pools/${pool.pool}`)}
                                         onClick={() => !clickedPools.includes(pool.pool) && handleRowClick(pool, index)}
-                                        className={` relative ${clickedPools.includes(pool.pool) ? 'cursor-not-allowed':'cursor-pointer'}`}
-                                        
+                                        className={` relative ${clickedPools.includes(pool.pool) ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+
                                     >
                                         {/* <TableCell className={`font-medium text-muted-foreground ${isPremium ? "blur-[2px]" : ""}`}> */}
                                         <TableCell className={`font-medium text-muted-foreground`}>
@@ -224,7 +218,11 @@ const PoolsTable = () => {
                                             {pool.sigma ? `${pool.sigma.toFixed(1)}%` : 'N/A'}
                                         </TableCell>
                                         <TableCell className={`text-right text-xs text-muted-foreground ${shouldBlur ? "blur-[2px]" : ""}`}>
-                                            {pool.predictions ? pool.predictions?.predictedClass : "N/A"}
+                                            <div className="flex items-center justify-end gap-1">
+                                                {pool.predictions?.predictedClass === "Stable/Up" ? <TrendingUp className="h-5 w-5 text-green-500" /> : ""}
+                                                {pool.predictions?.predictedClass === "Down" ? <TrendingDown className="h-5 w-5 text-red-500" /> : ""}
+                                                {pool.predictions ? pool.predictions?.predictedClass : "N/A"}
+                                            </div>
                                         </TableCell>
                                     </TableRow>
                                 );

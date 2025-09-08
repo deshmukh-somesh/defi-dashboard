@@ -92,7 +92,7 @@ export function absoluteUrl(path: string) {
 export function constructMetadata({
   title = "DeFi Dashboard - Advanced Cryptocurrency Portfolio & Trading Platform",
   description = "Comprehensive DeFi dashboard for cryptocurrency trading, portfolio management, and yield farming. Track your digital assets, analyze market trends, and maximize your DeFi investments with real-time data and advanced analytics.",
-  image = "/Thumbnail.jpeg",
+  image = "/thumbnail.jpeg",
   icons = "/icon.ico",
   noIndex = false,
   keywords = "DeFi dashboard, cryptocurrency portfolio, crypto trading, yield farming, liquidity pools, DeFi analytics, blockchain portfolio tracker, crypto investment platform, decentralized finance"
