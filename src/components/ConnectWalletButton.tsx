@@ -16,6 +16,11 @@ interface ConnectWalletButtonProps {
     compact?: boolean; // Add this prop
 }
 
+interface MetaMaskError {
+    code: number;
+    message: string;
+}
+
 export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
     compact = false
 }) => {
@@ -32,7 +37,7 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
         });
 
         try {
-            
+
             await sdk?.connect();
             toast.dismiss(loadingToast);
 
@@ -43,12 +48,15 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
                 duration: 4000
             });
         } catch (err) {
+            const error = err as MetaMaskError;
+
 
             toast.dismiss(loadingToast);
 
             console.error("Connection failed:", err);
             toast.error("❌ Connection Failed", {
-                description: err instanceof Error ? err.message : "Failed to connect to MetaMask",
+                // description: err instanceof Error ? err.message : "Failed to connect to MetaMask",
+                description: error ? error.message : "Failed to connect to MetaMask",
                 className: "fintech-card financial-loss bg-red-50 dark:bg-red-950/20 border-red-500/50",
                 duration: 5000
             });
@@ -126,7 +134,7 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
                     <CheckCircle className="mr-2 h-4 w-4" />
                     Wallet Connected
                 </Button>
-                
+
             );
         }
 
