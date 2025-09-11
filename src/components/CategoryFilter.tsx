@@ -14,7 +14,7 @@ export const CategoryFilter = ({ activeCategory, onCategoryChange }: CategoryFil
    ]
    
    return (
-       <div className="flex flex-wrap gap-3 p-1 bg-muted/30 rounded-lg border border-border">
+       <div className="flex flex-wrap  gap-3 p-1 bg-muted/30 rounded-lg border border-border">
            {categories.map(({ key, label }) => (
                <Button 
                    key={key} 

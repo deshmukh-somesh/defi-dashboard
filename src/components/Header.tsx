@@ -10,7 +10,7 @@ import brand from '../../public/icons/brand2.svg'
 const Header = () => {
     return (
         <header className="mx-auto bg-card border mb-18 border-border rounded-xl p-3 sm:p-4 fintech-card m-4">
-            <div className="flex items-center justify-evenly gap-4 sm:gap-8">
+            <div className="flex items-center justify-between gap-4 sm:gap-8">
                 <Link href="/" className="flex gap-2.5 flex-shrink-0 text-primary hover:text-primary/80 text-2xl sm:text-3xl transition-colors">
                     <Image
                         alt="DeFi Brand Logo"
@@ -19,11 +19,11 @@ const Header = () => {
                         height={32}
                         className="w-8 h-8 sm:w-10 sm:h-10"
                     />
-                    <span className=" amber-accent font-semibold">DeFi</span>
+                    <span className="  max-[400px]:hidden sm:inline amber-accent font-semibold">DeFi</span>
                 </Link>
 
                 {/* Navigation menu */}
-                <nav className="sm:flex items-center justify-around gap-8 mx-auto hidden">
+                <nav className="items-center justify-around gap-8 mx-auto hidden">
                     <a href="#" className="text-foreground hover:text-primary transition-colors px-3 py-2 rounded-md hover:bg-accent">
                         Markets
                     </a>
@@ -36,7 +36,7 @@ const Header = () => {
                 </nav>
 
                 {/* User Avatar */}
-                <div className="flex justify-center items-center gap-4">
+                <div className="flex flex-wrap justify-center items-center gap-4">
                     <ModeToggle />
 
                     <ConnectWalletButton />
